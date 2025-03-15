@@ -13,10 +13,8 @@ jobs:
 
       - name: Build
         run: yarn build
-
-      - run: yarn run export # scripts : { export: 'next export' }
-      - run: touch ./out/.nojekyll #위에서 말한 것처럼 이파일을 추가하지 않으면 _app 인식 못함
-
+      - run: touch ./out/.nojekyll 
+      
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
