@@ -4,17 +4,17 @@
   "private": true,
   "homepage": "https://dev-hann.github.io/wedding/",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "env-cmd -f .env.localhost next dev --turbopack",
+    "build": "env-cmd -f .env.production next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^12.5.0",
     "next": "15.2.2",
     "react": "^19.0.0",

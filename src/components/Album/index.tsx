@@ -14,7 +14,7 @@ export default function Album() {
 
   const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
     id: i + 1,
-    src: `/images/gallery/${i}.jpeg`,
+    src: `${process.env.BASE_PATH}/images/gallery/${i}.jpeg`,
     alt: `웨딩 사진 ${i + 1}`,
   }));
 
