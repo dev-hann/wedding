@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: yarn set version 3.2.2
+      - run: yarn set version 1.22.22
       - run: yarn install
 
       - name: Build
