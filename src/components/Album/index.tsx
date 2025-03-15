@@ -12,8 +12,6 @@ export interface AlbumProps {
 export default function Album() {
   const [selectedImage, setSelectedImage] = useState<AlbumProps | null>(null);
 
-  // 9x9 그리드용 이미지 배열 (총 81장)
-  // 실제 구현 시 이미지 경로를 적절히 수정해야 합니다
   const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
     id: i + 1,
     src: `/images/gallery/${i}.jpeg`,
@@ -31,10 +29,6 @@ export default function Album() {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl text-center mb-12 font-light">
-          갤러리
-        </h2>
-
         <div className="grid grid-cols-3 md:grid-cols-9 gap-1 md:gap-2">
           {images.map((image) => (
             <motion.div
@@ -49,9 +43,9 @@ export default function Album() {
               <Image
                 src={image.src}
                 alt={image.alt}
-                layout="fill"
-                objectFit="cover"
-                className="hover:scale-105 transition-transform duration-300"
+                width={0}
+                height={0}
+                className="w-full h-full hover:scale-105 transition-transform duration-300"
               />
             </motion.div>
           ))}
