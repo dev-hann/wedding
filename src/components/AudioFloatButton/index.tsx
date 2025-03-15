@@ -20,7 +20,9 @@ export default function AudioFloatButton() {
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 오디오 요소 생성
-    audioRef.current = new Audio("/audio/bgm.mp3");
+    audioRef.current = new Audio(
+      `${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`,
+    );
     // 오디오 로드 완료 이벤트
     audioRef.current.addEventListener("canplaythrough", () => {
       console.log("오디오 로드 완료");
