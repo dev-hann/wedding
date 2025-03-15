@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,12 +11,16 @@ export interface AlbumProps {
 
 export default function Album() {
   const [selectedImage, setSelectedImage] = useState<AlbumProps | null>(null);
+  const [images, setImages] = useState<AlbumProps[]>([]);
 
-  const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
-    id: i + 1,
-    src: `${process.env.BASE_PATH}/images/gallery/${i}.jpeg`,
-    alt: `웨딩 사진 ${i + 1}`,
-  }));
+  useEffect(() => {
+    const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
+      id: i + 1,
+      src: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/gallery/${i}.jpeg`,
+      alt: `웨딩 사진 ${i + 1}`,
+    }));
+    setImages(images);
+  }, []);
 
   const openImage = (image: AlbumProps) => {
     setSelectedImage(image);
