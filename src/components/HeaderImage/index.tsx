@@ -2,7 +2,7 @@ import Image from "next/image";
 export default function HeaderImage() {
   return (
     <Image
-      src={`${process.env.BASE_PATH}/images/main.jpeg`}
+      src={`/images/main.jpeg`}
       alt="웨딩 사진"
       width={0}
       height={0}
