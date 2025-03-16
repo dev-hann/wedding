@@ -39,5 +39,5 @@ export default function Location() {
     }
   }, [isScriptLoaded, x, y]);
 
-  return <div ref={mapRef} className="w-full h-[500px]" />;
+  return <div ref={mapRef} className="w-full h-[50vh]" />;
 }
