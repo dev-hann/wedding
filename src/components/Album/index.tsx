@@ -32,8 +32,8 @@ export default function Album() {
 
   return (
     <section className="py-16 px-4 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-3 md:grid-cols-9 gap-1 md:gap-2">
+      <div>
+        <div className="grid grid-cols-3 gap-1 md:gap-2">
           {images.map((image) => (
             <motion.div
               key={image.id}
@@ -41,7 +41,7 @@ export default function Album() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true, margin: "0px 0px -200px 0px" }}
-              className="aspect-square relative overflow-hidden cursor-pointer"
+              className="aspect-square relative overflow-hidden cursor-pointer rounded-xl"
               onClick={() => openImage(image)}
             >
               <Image

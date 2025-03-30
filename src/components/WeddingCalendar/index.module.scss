@@ -1,0 +1,55 @@
+.calendarContainer {
+    max-width: 70%;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    background-color: white;
+}
+
+.monthTitle {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.weddingCalendar {
+    width: 100%;
+    border: none;
+    font-family: "Inter", sans-serif;
+}
+
+/* 요일 스타일 */
+.weddingCalendar abbr {
+    text-decoration: none;
+    font-weight: 500;
+    color: #666;
+}
+
+/* 일반 날짜 스타일 */
+.weddingCalendar button {
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+/* 웨딩데이 스타일 */
+.weddingDay {
+    background-color: #ffebee !important;
+    border: 2px solid transparent !important;
+    abbr {
+        font-weight: bold !important;
+    }
+}
+/* 토요일 스타일 */
+.saturday abbr {
+    color: #1976d2 !important; /* 파란색 */
+    /* font-weight: 600 !important; */
+}
+
+/* 일요일 스타일 */
+.sunday abbr {
+    color: #d32f2f !important; /* 빨간색 */
+    /* font-weight: 600 !important; */
+}
