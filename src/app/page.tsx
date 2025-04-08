@@ -21,6 +21,7 @@ const location: Location = {
   longitude: 127.9799731266445,
   phoneNumber: "010-5363-3338",
 };
+
 export default function Home() {
   const { isModalOpen, openModal, closeModal } = useInvitation();
   return (

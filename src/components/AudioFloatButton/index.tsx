@@ -1,38 +1,48 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function AudioFloatButton() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-
+  const [showToast, setShowToast] = useState(true);
   useEffect(() => {
-    const audioElement = new Audio(
-      `${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`,
-    );
-    setAudio(audioElement);
-
-    // 오디오가 끝나면 자동으로 재생 상태 변경
-    audioElement.addEventListener("ended", () => setIsPlaying(false));
-    return () => {
-      audioElement.pause();
-      setAudio(null);
-    };
-  }, []);
-
-  const togglePlay = () => {
+    const audio = audioRef.current;
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play().catch((error) => console.error("오디오 재생 실패:", error));
-    }
+    audio.addEventListener("play", playAudio);
+    audio.addEventListener("pause", pauseAudio);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1500);
+  }, []);
 
-    setIsPlaying(!isPlaying);
+  const playAudio = () => {
+    audioRef.current?.play();
+    setIsPlaying(true);
+  };
+
+  const pauseAudio = () => {
+    audioRef.current?.pause();
+    setIsPlaying(false);
+  };
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      pauseAudio();
+    } else {
+      playAudio();
+    }
   };
 
   return (
     <div className="fixed top-6 right-6 z-50">
+      <audio
+        ref={audioRef}
+        className="hidden"
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`}
+        autoPlay={true}
+        loop={true}
+      />
       <button
         onClick={togglePlay}
         className="bg-white w-12 h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform focus:outline-none"
@@ -40,6 +50,17 @@ export default function AudioFloatButton() {
       >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
+      {showToast && (
+        <div className="duration-500 ease-in-out animate-fade-in">
+          <span>🎵 배경음악이 있어요</span>
+          <button
+            onClick={playAudio}
+            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+          >
+            재생
+          </button>
+        </div>
+      )}
     </div>
   );
 }
