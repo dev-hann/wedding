@@ -1,19 +1,42 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 
 export default function AudioFloatButton() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showToast, setShowToast] = useState(true);
+  const [showToast, setShowToast] = useState(false);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.addEventListener("play", playAudio);
-    audio.addEventListener("pause", pauseAudio);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 1500);
+    const tryAutoPlay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log("자동재생 실패, 토스트 보여주기 "+error);
+        setShowToast(true);
+
+        setTimeout(() => {
+          const toastElement = document.querySelector(".toast-slide");
+          if (toastElement) {
+            toastElement.classList.remove("animate-slide-down");
+            toastElement.classList.add("animate-slide-up");
+            setTimeout(() => {
+              setShowToast(false);
+            }, 500); // 올라가는 애니메이션 끝나고 토스트 제거
+          }
+        }, 2000); // 내려와서 2초 있다가 다시 올라감
+      }
+    };
+
+    tryAutoPlay();
+
+    return () => {
+      // 정리할 타이머가 있으면 여기에
+    };
   }, []);
 
   const playAudio = () => {
@@ -25,6 +48,7 @@ export default function AudioFloatButton() {
     audioRef.current?.pause();
     setIsPlaying(false);
   };
+
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -35,35 +59,36 @@ export default function AudioFloatButton() {
   };
 
   return (
-    <div className="fixed top-6 right-6 z-50">
-      <audio
-        ref={audioRef}
-        className="hidden"
-        src={`${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`}
-        autoPlay={true}
-        loop={true}
-      />
-      <button
-        onClick={togglePlay}
-        className="bg-white w-12 h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform focus:outline-none"
-        aria-label={isPlaying ? "음악 정지" : "음악 재생"}
-      >
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </button>
+    <>
+      {/* 토스트 알림 */}
       {showToast && (
-        <div className="duration-500 ease-in-out animate-fade-in">
-          <span>🎵 배경음악이 있어요</span>
-          <button
-            onClick={playAudio}
-            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-          >
-            재생
-          </button>
+        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
+          <div className="toast-slide animate-slide-down bg-black text-white text-sm px-4 py-2 rounded-b-md shadow-md mt-2">
+            🎵 배경음악이 있어요!
+          </div>
         </div>
       )}
-    </div>
+
+      {/* 오디오 버튼 */}
+      <div className="fixed top-6 right-6 z-40">
+        <audio
+          ref={audioRef}
+          className="hidden"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`}
+          loop
+        />
+        <button
+          onClick={togglePlay}
+          className="bg-white w-12 h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform focus:outline-none"
+          aria-label={isPlaying ? "음악 정지" : "음악 재생"}
+        >
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </button>
+      </div>
+    </>
   );
 }
+
 
 // 아이콘 컴포넌트 분리
 const PauseIcon = () => (

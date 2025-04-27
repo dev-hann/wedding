@@ -23,7 +23,7 @@ const location: Location = {
 };
 
 export default function Home() {
-  const { isModalOpen, openModal, closeModal } = useInvitation();
+  const { isModalOpen, openModal, closeModal, handleConfirm } = useInvitation();
   return (
     <>
       <div className="max-w-lg mx-auto text-gray-900">
@@ -66,7 +66,7 @@ export default function Home() {
       <InvitationModal
         isModalOpen={isModalOpen}
         handleConfirm={(name) => {
-          console.log(name);
+          handleConfirm(name);
           closeModal();
         }}
         handleCloseModal={() => {
