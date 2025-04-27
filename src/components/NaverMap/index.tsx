@@ -80,7 +80,7 @@ export default function NaverMap({ location }: LocationProps) {
           rel="noopener noreferrer"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/navigation/naver.png`}
+            src={`/images/navigation/naver.png`}
             width={50}
             height={50}
             alt="네이버 지도"
@@ -92,7 +92,7 @@ export default function NaverMap({ location }: LocationProps) {
           rel="noopener noreferrer"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/navigation/kakao.png`}
+            src={`/images/navigation/kakao.png`}
             width={50}
             height={50}
             alt="카카오맵"
@@ -104,7 +104,7 @@ export default function NaverMap({ location }: LocationProps) {
           rel="noopener noreferrer"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/navigation/skt.png`}
+            src={`/images/navigation/skt.png`}
             width={50}
             height={50}
             alt="T맵"

@@ -16,7 +16,7 @@ export default function Album() {
   useEffect(() => {
     const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
       id: i + 1,
-      src: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/gallery/${i}.jpeg`,
+      src: `/images/gallery/${i}.jpeg`,
       alt: `웨딩 사진 ${i + 1}`,
     }));
     setImages(images);

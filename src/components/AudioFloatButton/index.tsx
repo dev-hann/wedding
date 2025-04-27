@@ -74,7 +74,7 @@ export default function AudioFloatButton() {
         <audio
           ref={audioRef}
           className="hidden"
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH}/audio/bgm.mp3`}
+          src={`/audio/bgm.mp3`}
           loop
         />
         <button
