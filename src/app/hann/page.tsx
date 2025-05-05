@@ -22,13 +22,13 @@ const location: Location = {
 const accounts: Account[] = [
   {
     relation: "아버지",
-    name: "송도현",
+    name: "윤석안",
     bank: "우리은행",
     accountNumber: "345678-90-123456",
   },
   {
     relation: "어머니",
-    name: "박미영",
+    name: "김선희",
     bank: "하나은행",
     accountNumber: "456789-01-234567",
   },
@@ -48,6 +48,7 @@ export default function Page() {
               brideName={"송지영"}
               date={weddingDate}
               location={location.name}
+              isDetailHide={false}
             />
           </div>
         </section>

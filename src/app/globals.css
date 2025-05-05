@@ -26,27 +26,26 @@ body {
 }
 @keyframes slideDown {
     0% {
-      transform: translateY(-100%);
+        transform: translateY(-100%);
     }
     100% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  }
-  
-  @keyframes slideUp {
+}
+
+@keyframes slideUp {
     0% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
     100% {
-      transform: translateY(-100%);
+        transform: translateY(-100%);
     }
-  }
-  
-  .animate-slide-down {
+}
+
+.animate-slide-down {
     animation: slideDown 0.5s ease forwards;
-  }
-  
-  .animate-slide-up {
+}
+
+.animate-slide-up {
     animation: slideUp 0.5s ease forwards;
-  }
-  
+}

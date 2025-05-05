@@ -1,27 +1,27 @@
 "use client";
 import Album from "@/components/Album";
 import AudioFloatButton from "@/components/AudioFloatButton";
-import WeddingCalendar from "@/components/WeddingCalendar";
 import FadeInMotion from "@/components/FadeInMotion";
 import HeaderImage from "@/components/HeaderImage";
 import HeaderText from "@/components/HeaderText";
 import Divider from "@/components/Divider";
 import AccountSection from "@/components/AccountSection";
 import { Account } from "@/models/account";
+import BlessingText from "@/components/BlessingText";
 
-const weddingDate = Date.parse("2025-05-31 13:00");
+const weddingDate = Date.parse("2025-07-19 00:00");
 const accounts: Account[] = [
   {
     relation: "아버지",
-    name: "송도현",
-    bank: "우리은행",
-    accountNumber: "345678-90-123456",
+    name: "송진현",
+    bank: "농협은행",
+    accountNumber: "351-0743-1096-63",
   },
   {
     relation: "어머니",
-    name: "박미영",
-    bank: "하나은행",
-    accountNumber: "456789-01-234567",
+    name: "박은숙",
+    bank: "농협은행",
+    accountNumber: "411-053-52046756",
   },
 ];
 export default function Page() {
@@ -39,11 +39,12 @@ export default function Page() {
               brideName={"송지영"}
               date={weddingDate}
               location={null}
+              isDetailHide={true}
             />
           </div>
         </section>
         <FadeInMotion>
-          <WeddingCalendar weddingDay={weddingDate} />
+          <BlessingText />
         </FadeInMotion>
 
         <FadeInMotion>

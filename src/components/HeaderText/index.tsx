@@ -5,6 +5,7 @@ export interface HeaderTextProps {
   brideName: string;
   date: number;
   location: string | null;
+  isDetailHide: boolean;
 }
 
 export default function HeaderText({
@@ -12,6 +13,7 @@ export default function HeaderText({
   brideName,
   date,
   location,
+  isDetailHide,
 }: HeaderTextProps) {
   return (
     <div className="text-center">
@@ -28,7 +30,9 @@ export default function HeaderText({
       </h1>
 
       <div className="mt-6">
-        <p className="text-base md:text-lg text-gray-700">{formatDate(date)}</p>
+        <p className="text-base md:text-lg text-gray-700">
+          {formatDate(date, isDetailHide)}
+        </p>
         <div className="w-10 h-px bg-gray-300 mx-auto my-2" />
         <p className="text-base md:text-lg font-medium text-gray-800">
           {location}
@@ -38,13 +42,13 @@ export default function HeaderText({
   );
 }
 
-const formatDate = (timestamp: number) => {
+const formatDate = (timestamp: number, isDetailHide: boolean) => {
   return new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "long",
     day: "numeric",
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
+    weekday: !isDetailHide ? "short" : undefined,
+    hour: !isDetailHide ? "2-digit" : undefined,
+    minute: !isDetailHide ? "2-digit" : undefined,
   }).format(new Date(timestamp));
 };
