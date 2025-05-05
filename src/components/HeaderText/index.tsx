@@ -4,7 +4,7 @@ export interface HeaderTextProps {
   groomName: string;
   brideName: string;
   date: number;
-  location: string;
+  location: string | null;
 }
 
 export default function HeaderText({
