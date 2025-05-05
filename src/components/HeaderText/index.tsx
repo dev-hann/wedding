@@ -15,33 +15,35 @@ export default function HeaderText({
 }: HeaderTextProps) {
   return (
     <div className="text-center">
-      <h1 className="text-3xl md:text-4xl font-light tracking-wide flex items-center justify-center">
-        <div className="text-center">
-          {groomName}
-          <div className="text-sm text-gray-500">신랑</div>
+      <h1 className="text-2xl md:text-4xl font-medium tracking-wide flex items-center justify-center space-x-3">
+        <div>
+          <p className="text-gray-800">{groomName}</p>
+          <p className="text-xs text-gray-500 mt-1">신랑</p>
         </div>
-        <span className="mx-2 text-red-500">♥</span>
-        <div className="text-center">
-          {brideName}
-          <div className="text-sm text-gray-500">신부</div>
+        <span className="text-pink-500 text-xl md:text-2xl">♥</span>
+        <div>
+          <p className="text-gray-800">{brideName}</p>
+          <p className="text-xs text-gray-500 mt-1">신부</p>
         </div>
       </h1>
-      <div className="pt-4">
-        <p className="text-lg font-light mb-3">{formatDate(date)}</p>
-        <div className="w-12 h-px bg-gray-300 mx-auto mb-3"></div>
-        <p className="text-lg font-medium">{location}</p>
+
+      <div className="mt-6">
+        <p className="text-base md:text-lg text-gray-700">{formatDate(date)}</p>
+        <div className="w-10 h-px bg-gray-300 mx-auto my-2" />
+        <p className="text-base md:text-lg font-medium text-gray-800">
+          {location}
+        </p>
       </div>
     </div>
   );
 }
 
-// 날짜 포맷 함수 추가
 const formatDate = (timestamp: number) => {
   return new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "long",
     day: "numeric",
-    weekday: "long",
+    weekday: "short",
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(timestamp));

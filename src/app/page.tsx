@@ -5,13 +5,11 @@ import WeddingCalendar from "@/components/WeddingCalendar";
 import FadeInMotion from "@/components/FadeInMotion";
 import HeaderImage from "@/components/HeaderImage";
 import HeaderText from "@/components/HeaderText";
-import InvitationCard from "@/components/InvitationCard";
 import NaverMap from "@/components/NaverMap";
-import InvitationModal from "@/components/InvitaionModal";
-import { useInvitation } from "@/hooks/Invitation/useInvitation";
 import Divider from "@/components/Divider";
 import { Location } from "@/models/location";
-import FooterText from "@/components/FooterText";
+import AccountSection from "@/components/AccountSection";
+import { Account } from "@/models/account";
 
 const weddingDate = Date.parse("2025-05-31 13:00");
 const location: Location = {
@@ -22,8 +20,22 @@ const location: Location = {
   phoneNumber: "010-5363-3338",
 };
 
+const accounts: Account[] = [
+  {
+    relation: "아버지",
+    name: "송도현",
+    bank: "우리은행",
+    accountNumber: "345678-90-123456",
+  },
+  {
+    relation: "어머니",
+    name: "박미영",
+    bank: "하나은행",
+    accountNumber: "456789-01-234567",
+  },
+];
+
 export default function Home() {
-  const { isModalOpen, openModal, closeModal, handleConfirm } = useInvitation();
   return (
     <>
       <div className="max-w-lg mx-auto text-gray-900">
@@ -50,29 +62,15 @@ export default function Home() {
         </section>
 
         <FadeInMotion>
-          <Divider title="참석 여부 전달" />
-          <InvitationCard onClick={openModal} />
+          <Divider title="마음 전하실 곳" />
+          <AccountSection accounts={accounts} />
         </FadeInMotion>
 
         <section className="p-4">
           <Divider title="갤러리" />
           <Album />
         </section>
-        <section className="pb-8">
-          <FooterText />
-        </section>
       </div>
-
-      <InvitationModal
-        isModalOpen={isModalOpen}
-        handleConfirm={(name) => {
-          handleConfirm(name);
-          closeModal();
-        }}
-        handleCloseModal={() => {
-          closeModal();
-        }}
-      />
     </>
   );
 }

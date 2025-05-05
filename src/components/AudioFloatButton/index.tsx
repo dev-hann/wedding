@@ -16,7 +16,7 @@ export default function AudioFloatButton() {
         await audio.play();
         setIsPlaying(true);
       } catch (error) {
-        console.log("자동재생 실패, 토스트 보여주기 "+error);
+        console.log("자동재생 실패, 토스트 보여주기 " + error);
         setShowToast(true);
 
         setTimeout(() => {
@@ -60,9 +60,11 @@ export default function AudioFloatButton() {
 
   return (
     <>
-      {/* 토스트 알림 */}
       {showToast && (
-        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
+        <div
+          className="fixed top-0 left-0 right-0 z-50 flex justify-center cursor-pointer"
+          onClick={togglePlay}
+        >
           <div className="toast-slide animate-slide-down bg-black text-white text-sm px-4 py-2 rounded-b-md shadow-md mt-2">
             🎵 배경음악이 있어요!
           </div>
@@ -71,12 +73,7 @@ export default function AudioFloatButton() {
 
       {/* 오디오 버튼 */}
       <div className="fixed top-6 right-6 z-40">
-        <audio
-          ref={audioRef}
-          className="hidden"
-          src={`/audio/bgm.mp3`}
-          loop
-        />
+        <audio ref={audioRef} className="hidden" src={`/audio/bgm.mp3`} loop />
         <button
           onClick={togglePlay}
           className="bg-white w-12 h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform focus:outline-none"
@@ -88,7 +85,6 @@ export default function AudioFloatButton() {
     </>
   );
 }
-
 
 // 아이콘 컴포넌트 분리
 const PauseIcon = () => (

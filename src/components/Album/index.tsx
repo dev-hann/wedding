@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,155 +11,87 @@ export interface AlbumProps {
 }
 
 export default function Album() {
-  const [selectedImage, setSelectedImage] = useState<AlbumProps | null>(null);
   const [images, setImages] = useState<AlbumProps[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const images: AlbumProps[] = Array.from({ length: 9 }, (_, i) => ({
-      id: i + 1,
+    const imgs: AlbumProps[] = Array.from({ length: 4 }, (_, i) => ({
+      id: i,
       src: `/images/gallery/${i}.jpeg`,
       alt: `웨딩 사진 ${i + 1}`,
     }));
-    setImages(images);
+    setImages(imgs);
   }, []);
 
-  const openImage = (image: AlbumProps) => {
-    setSelectedImage(image);
+  // 자동 슬라이드 타이머 설정
+  useEffect(() => {
+    if (images.length === 0) return;
+
+    timerRef.current = setTimeout(() => {
+      setSelectedIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [selectedIndex, images]);
+
+  const onSelectImage = (index: number) => {
+    setSelectedIndex(index);
+    if (timerRef.current) clearTimeout(timerRef.current);
   };
 
-  const closeImage = () => {
-    setSelectedImage(null);
-  };
+  const selectedImage = images[selectedIndex];
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
-      <div>
-        <div className="grid grid-cols-3 gap-1 md:gap-2">
-          {images.map((image) => (
-            <motion.div
-              key={image.id}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -200px 0px" }}
-              className="aspect-square relative overflow-hidden cursor-pointer rounded-xl"
-              onClick={() => openImage(image)}
-            >
+    <section className="px-4 py-10">
+      {/* 메인 이미지 뷰어 */}
+      <div className="w-full aspect-[4/3] relative overflow-hidden rounded-xl shadow-md mb-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedImage?.id}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            {selectedImage && (
               <Image
-                src={image.src}
-                alt={image.alt}
-                width={0}
-                height={0}
-                className="w-full h-full hover:scale-105 transition-transform duration-300"
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-xl"
               />
-            </motion.div>
-          ))}
-        </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* 이미지 모달 */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
-            onClick={closeImage}
+      {/* 인디케이터 썸네일 리스트 */}
+      <div className="flex justify-center gap-2 overflow-x-auto pb-2">
+        {images.map((img, idx) => (
+          <div
+            key={img.id}
+            onClick={() => onSelectImage(idx)}
+            className={`relative w-20 h-20 rounded-md overflow-hidden cursor-pointer border-2 transition ${
+              selectedIndex === idx
+                ? "border-blue-400"
+                : "border-transparent hover:border-gray-300"
+            }`}
           >
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              className="relative max-w-4xl max-h-[90vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 z-10"
-                onClick={closeImage}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              <div className="relative h-[80vh]">
-                <Image
-                  src={selectedImage.src}
-                  alt={selectedImage.alt}
-                  layout="fill"
-                  objectFit="contain"
-                />
-              </div>
-            </motion.div>
-
-            {/* 네비게이션 버튼 */}
-            <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                const currentIndex = images.findIndex(
-                  (img) => img.id === selectedImage.id,
-                );
-                const prevIndex =
-                  (currentIndex - 1 + images.length) % images.length;
-                setSelectedImage(images[prevIndex]);
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <button
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                const currentIndex = images.findIndex(
-                  (img) => img.id === selectedImage.id,
-                );
-                const nextIndex = (currentIndex + 1) % images.length;
-                setSelectedImage(images[nextIndex]);
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Image
+              src={img.src}
+              alt={img.alt}
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
