@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "여환 & 지영, 결혼합니다!",
   description: "소중한 사람들과 함께하는 결혼식에 초대합니다.",
+  openGraph: {
+    type: "website",
+    url: "https://dev-hann.vercel.app",
+    images: [
+      {
+        url: "https://dev-hann.vercel.app/images/main.jpeg",
+        alt: "여환 & 지영, 결혼합니다!",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -24,10 +34,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -36,6 +36,10 @@ const accounts: Account[] = [
 export default function Page() {
   return (
     <>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      />
       <div className="max-w-lg mx-auto text-gray-900">
         <AudioFloatButton />
         <section className="p-4 min-h-[100svh] flex flex-col">
