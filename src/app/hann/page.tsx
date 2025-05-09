@@ -11,7 +11,7 @@ import { Location } from "@/models/location";
 import AccountSection from "@/components/AccountSection";
 import { Account } from "@/models/account";
 
-const weddingDate = Date.parse("2025-05-31 13:00");
+const weddingDate = Date.parse("2025-05-31 14:00");
 const location: Location = {
   name: "초대파티하우스",
   address: "강원 원주시 반곡동 1886-1",
@@ -23,14 +23,20 @@ const accounts: Account[] = [
   {
     relation: "아버지",
     name: "윤석안",
-    bank: "우리은행",
-    accountNumber: "345678-90-123456",
+    bank: "농협은행",
+    accountNumber: "351-0857-5625-03",
   },
   {
     relation: "어머니",
     name: "김선희",
-    bank: "하나은행",
-    accountNumber: "456789-01-234567",
+    bank: "농협은행",
+    accountNumber: "216-0185-2092-236",
+  },
+  {
+    relation: "신랑",
+    name: "윤여환",
+    bank: "농협은행",
+    accountNumber: "302-0149-3208-11",
   },
 ];
 export default function Page() {

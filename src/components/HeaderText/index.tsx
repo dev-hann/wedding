@@ -48,7 +48,7 @@ const formatDate = (timestamp: number, isDetailHide: boolean) => {
     month: "long",
     day: "numeric",
     weekday: !isDetailHide ? "short" : undefined,
-    hour: !isDetailHide ? "2-digit" : undefined,
+    hour: !isDetailHide ? "numeric" : undefined,
     minute: !isDetailHide ? "2-digit" : undefined,
   }).format(new Date(timestamp));
 };

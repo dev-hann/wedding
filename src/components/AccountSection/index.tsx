@@ -28,7 +28,7 @@ function Accordion({ group }: { group: AccountGroup }) {
             <div>
               <div>
                 <p className="text-sm font-semibold mb-1">
-                  {account.relation} ({account.name})
+                  {account.name} ({account.relation})
                 </p>
                 <p className="text-sm text-gray-700">
                   {account.bank} {account.accountNumber}
@@ -61,11 +61,6 @@ export default function AccountSection({ accounts }: AccountSectionProps) {
       <div className="mb-6 text-center text-sm text-gray-600 leading-relaxed">
         축하의 뜻을 전해주실 분들을 위해 계좌번호를 안내드립니다.
       </div>
-
-      {/* <div className="mb-6 text-center text-sm text-gray-600 leading-relaxed">
-        참석이 어려우신 분들께서는 마음만으로도 감사드립니다. <br />
-        부득이하게 축하의 뜻을 전해주실 분들을 위해 계좌번호를 안내드립니다.
-      </div> */}
     </section>
   );
 }

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     url: "https://dev-hann.vercel.app",
     images: [
       {
-        url: "/images/main.jpeg",
+        url: "https://dev-hann.vercel.app/images/main.jpeg",
         alt: "여환 & 지영, 결혼합니다!",
       },
     ],
